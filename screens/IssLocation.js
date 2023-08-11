@@ -13,6 +13,13 @@ export default class IssLocationScreen extends Component {
 
     componentDidMount() {
         this.getIssLocation()
+        try {
+            setInterval(async () => {
+                this.getIssLocation()
+            }, 5000);
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     getIssLocation = () => {
@@ -62,7 +69,14 @@ export default class IssLocationScreen extends Component {
                                 </Marker>
                             </MapView>
                         </View>
+                        <View style={styles.infoContainer}>
+                            <Text style={styles.infoText}>Latitud: {this.state.location.latitude}</Text>
+                            <Text style={styles.infoText}>Longitud: {this.state.location.longitude}</Text>
+                            <Text style={styles.infoText}>Altitud (KM): {this.state.location.altitude}</Text>
+                            <Text style={styles.infoText}>Velocidad (KM/H): {this.state.location.velocity}</Text>
+                        </View>
                     </ImageBackground>
+                    
                 </View>
             )
         }
@@ -96,5 +110,18 @@ const styles = StyleSheet.create({
     map: {
         width: "100%",
         height: "100%"
+    },
+    infoContainer: {
+        flex: 0.2,
+        backgroundColor: "white",
+        marginTop: -10,
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30,
+        padding: 30
+    },
+    infoText: {
+        fontSize: 15,
+        color: "black",
+        fontWeight: "bold"
     }
 })
