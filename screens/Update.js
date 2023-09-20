@@ -20,7 +20,7 @@ export default class UpdateScreen extends Component {
         axios
         .get("https://api.spaceflightnewsapi.net/v4/articles/")
         .then(response => {
-            this.setState({ articles: response.data })
+            this.setState({ articles: response.data.results })
             this.getReports()
         })
         .catch(error => {
@@ -29,9 +29,9 @@ export default class UpdateScreen extends Component {
     }
     getReports = () => {
         axios
-        .get("https://api.spaceflightnewsapi.net/v4/reports")
+        .get("https://api.spaceflightnewsapi.net/v4/reports/")
         .then(response => {
-            this.setState({ reports: response.data })
+            this.setState({ reports: response.data.results })
             this.getBlogs()
         })
         .catch(error => {
@@ -40,28 +40,29 @@ export default class UpdateScreen extends Component {
     }
     getBlogs = () => {
         axios
-        .get("https://api.spaceflightnewsapi.net/v4/blogs")
+        .get("https://api.spaceflightnewsapi.net/v4/blogs/")
         .then(response => {
-            this.setState({ blogs: response.data })
+            this.setState({ blogs: response.data.results })
         })
         .catch(error => {
             Alert.alert(error.message)
         })
     }
-    
+
     render(){
         return(
             <View style={styles.container}>
                 <SafeAreaView style={styles.droidSafeArea} />
                 <ImageBackground source={require('../assets/bg_updates.jpg')} style={styles.backgroundImage}>
                     <View style={styles.titleBar}>
-                        <Text style={styles.titleText}>Pantalla de Actualizaciones</Text>
+                        <text style={styles.titleText}>Pantalla de Actualizaciones</text>
                     </View>
                 </ImageBackground>
             </View>
         )
     }
 }
+
 const styles = StyleSheet.create({
     container: {
         flex: 1
@@ -84,4 +85,3 @@ const styles = StyleSheet.create({
         color: 'white'
     },
 })
-
